@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMlauncher 4.0 Pro | لانشر ماينكرافت المستقبلي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2d8a4e;
+            --primary-glow: #3aa863;
+            --bg-dark: #090a0f;
+            --card-bg: #12141d;
+            --text-main: #ffffff;
+            --text-sub: #9ea4b5;
+            --accent-gold: #f39c12;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* خلفية ضوئية متحركة */
+        .background-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .glow-circle {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(45, 138, 78, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            animation: float 12s infinite alternate ease-in-out;
+        }
+
+        .glow-circle:nth-child(2) {
+            bottom: -100px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(243, 156, 18, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            animation-delay: -6s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 80px) scale(1.2); }
+        }
+
+        /* الهيدر وقائمة التنقل */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(18, 20, 29, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo span { color: #fff; }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-glow);
+            text-shadow: 0 0 10px rgba(58, 168, 99, 0.5);
+        }
+
+        /* القسم الرئيسي (Hero Section) */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .version-badge {
+            background: rgba(45, 138, 78, 0.15);
+            border: 1px solid var(--primary);
+            color: var(--primary-glow);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--primary-glow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-sub);
+            font-size: 19px;
+            max-width: 750px;
+            margin-bottom: 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, var(--primary), var(--primary-glow));
+            color: #fff;
+            padding: 16px 42px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 0 30px rgba(45, 138, 78, 0.4);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 45px rgba(58, 168, 99, 0.7);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-glow);
+        }
+
+        /* قسم المميزات Grid */
+        .features {
+            padding: 100px 8%;
+            background: rgba(12, 13, 18, 0.6);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: var(--text-sub);
+            font-size: 16px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            color: var(--primary-glow);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--text-sub);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* قسم الإحصائيات السريعة */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 60px 8%;
+            background: var(--card-bg);
+            border-y: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .stat-item h4 {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--primary-glow);
+        }
+
+        .stat-item p {
+            color: var(--text-sub);
+            font-size: 14px;
+        }
+
+        /* الفوتر Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #050608;
+            color: var(--text-sub);
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        footer strong { color: var(--primary-glow); }
+    </style>
+</head>
+<body>
+
+    <div class="background-glow">
+        <div class="glow-circle"></div>
+        <div class="glow-circle"></div>
+    </div>
+
+    <header>
+        <a href="#" class="logo">
+            <i class="fa-solid fa-gamepad"></i> AMlauncher <span>4.0</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#features">المميزات</a></li>
+            <li><a href="#libraries">المكتبات والمودات</a></li>
+            <li><a href="#download">التحميل</a></li>
+        </ul>
+    </header>
+
+    <section class="hero">
+        <div class="version-badge">
+            <i class="fa-solid fa-bolt"></i> الإصدار الاحترافي v4.0 Pro
+        </div>
+        <h1>انطلق إلى الجيل القادم من ماينكرافت</h1>
+        <p>تجربة لعب خارقة بدون لاق، دعم كامل للـ Fabric و Forge، إدارة ذكية للجافا، وقائمة أصدقاء ودردشة خاصة تمنحك الحرية الكاملة.</p>
+        
+        <div class="hero-btns" id="download">
+            <!-- زر التحميل المباشر المحدث لملف Setup -->
+            <a href="./dist/AMlauncher 4.0 Pro Setup 4.0.0.exe" download class="btn-download">
+                <i class="fa-solid fa-download"></i> تحميل لانشر ويندوز (.exe)
+            </a>
+            <a href="#features" class="btn-secondary">
+                <i class="fa-solid fa-circle-info"></i> استكشف المميزات
+            </a>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stat-item">
+            <h4>0%</h4>
+            <p>لاق أو استهلاك زائد للرام</p>
+        </div>
+        <div class="stat-item">
+            <h4>3</h4>
+            <p>أنواع حسابات (Offline / AM / Microsoft)</p>
+        </div>
+        <div class="stat-item">
+            <h4>100%</h4>
+            <p>حماية وخصوصية تامة</p>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>لماذا يفضل اللاعبون AMlauncher؟</h2>
+            <p>تصميم وأداء صُمما خصيصاً ليناسب تطلعات مجتمع ماينكرافت العربي والعالمي.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <i class="fa-solid fa-users-viewfinder card-icon"></i>
+                <h3>أصدقاء ومحادثات فردية</h3>
+                <p>أضف أصدقاءك وتحدث معهم عبر شات خاص مباشر دون الحاجة لاستخدام برامج إضافية مثل ديسكورد.</p>
+            </div>
+
+            <div class="card" id="libraries">
+                <i class="fa-solid fa-cubes card-icon"></i>
+                <h3>مدير المكتبات والتحديثات</h3>
+                <p>مكتبة متكاملة تجلب وتثبت نسخ الجافا (Java 8 / 17) ومحركات المودات (Fabric & NeoForge) بضغطة زر واحدة.</p>
+            </div>
+
+            <div class="card">
+                <i class="fa-solid fa-shield-halved card-icon"></i>
+                <h3>ثلاثة خيارات للحسابات</h3>
+                <p>مرونة كاملة للدخول بالحساب المحلي السريع (Offline)، حساب AMlauncher السحابي، أو حساب Microsoft الأصلي.</p>
+            </div>
+
+            <div class="card">
+                <i class="fa-solid fa-gauge-high card-icon"></i>
+                <h3>أداء خارق وتخصيص الرام</h3>
+                <p>تحكم بحجم الذاكرة المخصصة للعبة وأداة صيانة سريعة لإصلاح ملفات ماينكرافت التالفة تلقائياً.</p>
+            </div>
+
+            <div class="card">
+                <i class="fa-solid fa-store card-icon"></i>
+                <h3>المتجر الحماسي (قريباً)</h3>
+                <p>نظام كوينز مدمج للحصول على رقصات وسكنات HD وإكسسوارات حصرية لتمييز شخصيتك.</p>
+            </div>
+
+            <div class="card">
+                <i class="fa-solid fa-wrench card-icon"></i>
+                <h3>فتح مجلد المودات بضغطة</h3>
+                <p>وصول مباشر ومجاني لمجلد المودات (Mods) للتحكم بحزم التكستشر والمودات بسهولة.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>جميع الحقوق محفوظة لـ <strong>AMlauncher 4.0 Pro</strong> &copy; 2026</p>
+    </footer>
+
+</body>
+</html>
